@@ -2,7 +2,7 @@
 
 Um projeto simples em **Python + Selenium** para coletar preços e nomes de produtos da Amazon e Mercado Livre, e visualizar os dados com **Streamlit**.
 
-## 🚀 Como usar
+##  Como usar
 
 1. Instale as dependências:
    ```bash
