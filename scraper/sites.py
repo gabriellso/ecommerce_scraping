@@ -27,7 +27,6 @@ def parse_mercadolivre(soup, max_title_length=80):
 
     return {"name": name, "price": price_float}
 
-
 def parse_amazon(soup, max_title_length=80):
     name_el = soup.select_one("#productTitle")
     name = name_el.get_text(strip=True) if name_el else ""

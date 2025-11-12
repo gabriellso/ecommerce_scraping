@@ -12,10 +12,13 @@ OUTPUT_FILE = 'results_produtos.csv'
 
 def init_driver():
     options = Options()
+
     options.add_argument(f"user-agent={random_user_agent()}")
     options.add_argument("--headless")
     options.add_argument("--disable-blink-features=AutomationControlled")
+
     driver = webdriver.Chrome(options=options)
+    driver.set_window_size(1920, 1080)
     return driver
 
 @retry(max_retries=3)
@@ -24,9 +27,9 @@ def scrape_product(url, driver, max_title_length=80):
     time.sleep(1)
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
-    if "mercadolivre.com.br" in url:
+    if "mercadolivre.com" in url:
         parsed = parse_mercadolivre(soup, max_title_length)
-    elif "amazon.com.br" in url:
+    elif "amazon.com" in url:
         parsed = parse_amazon(soup, max_title_length)
     else:
         logging.warning(f"Site não reconhecido: {url}")
@@ -63,7 +66,6 @@ def main():
     df = pd.DataFrame(data)
     df.to_csv(OUTPUT_FILE, index=False)
     logging.info(f"\n✅ Dados salvos em '{OUTPUT_FILE}'.")
-
 
 if __name__ == "__main__":
     main()
